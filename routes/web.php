@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 use Livewire\Volt\Volt;
 use Laravel\Socialite\Facades\Socialite;
-use App\Models\User;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,23 +26,21 @@ Route::get('/login/discord', function () {
     return Socialite::driver('discord')->redirect();
 });
 
-Route::get('/login/discord/callback', function () {
+Route::get('/login/discord/callback', function (Request $request) {
     try {
-        $discordUser = Socialite::driver('discord')->user();
+        $discordUser = Socialite::driver('discord')->stateless()->user();
 
-        $user = User::where('email', $discordUser->email)->first();
+        $user = \App\Models\User::where('email', $discordUser->email)->first();
 
         if (!$user) {
-            // If not found, create a new user
-            $user = User::create([
+            $user = \App\Models\User::create([
                 'discord_id' => $discordUser->id,
                 'name' => $discordUser->name ?? $discordUser->nickname,
                 'email' => $discordUser->email,
                 'avatar' => $discordUser->avatar,
-                'password' => bcrypt(Str::random(32)), // Required field
+                'password' => bcrypt(Str::random(32)),
             ]);
         } else {
-            // If found, optionally update discord_id or avatar
             $user->update([
                 'discord_id' => $discordUser->id,
                 'avatar' => $discordUser->avatar,
@@ -52,9 +51,21 @@ Route::get('/login/discord/callback', function () {
 
         return redirect('/');
 
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'OAuth failed', 'message' => $e->getMessage()]);
+    } catch (\Throwable $e) {
+        Log::error('Discord OAuth callback failed', [
+            'exception' => $e,
+            'request_all' => $request->all(),
+        ]);
+
+        if (config('app.debug')) {
+            return response()->json([
+                'error' => 'OAuth failed',
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ], 500);
+        }
+
+        return response()->json(['error' => 'OAuth failed', 'message' => 'Check logs.'], 500);
     }
 });
-
 require __DIR__ . '/auth.php';
