@@ -67,4 +67,9 @@ class User extends Authenticatable
             ? "https://cdn.discordapp.com/avatars/{$this->discord_id}/{$this->avatar}.png"
             : null;
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
