@@ -47,7 +47,7 @@ Route::get('/login/discord/callback', function (Request $request) {
             ]);
         }
 
-        Auth::login($user);
+        Auth::login($user, true);
 
         return redirect('/');
 
