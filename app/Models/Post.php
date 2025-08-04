@@ -13,6 +13,10 @@ class Post extends Model
         'uploaded_at',
     ];
 
+    /**
+     * A Post belongs to a User
+     * @return BelongsTo<User, Post>
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

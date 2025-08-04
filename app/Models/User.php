@@ -61,6 +61,10 @@ class User extends Authenticatable
             ->implode('');
     }
 
+    /**
+     * Get the user's Discord avatar (as url)
+     * @return string|null
+     */
     public function getDiscordAvatarUrl(): ?string
     {
         return $this->avatar
@@ -68,6 +72,10 @@ class User extends Authenticatable
             : null;
     }
 
+    /**
+     * A User can have many Post
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<Post, User>
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
