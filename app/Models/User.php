@@ -80,4 +80,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * Posts that the user (up|down)voted
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<Post, User, \Illuminate\Database\Eloquent\Relations\Pivot>
+     */
+    public function votedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'post_votes')
+            ->withPivot('vote_type')
+            ->withTimestamps();
+    }
 }
