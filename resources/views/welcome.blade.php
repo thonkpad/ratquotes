@@ -26,7 +26,7 @@
             class="fixed top-0 left-0 w-full z-50 bg-black text-white h-16 shadow-sm flex items-center justify-between px-6">
             <div class="flex items-center">
                 <a class="text-x1 font-semibold no-underline">
-                    Rat Quote
+                    Rat Quotes
                 </a>
             </div>
             <livewire:login />
@@ -37,6 +37,7 @@
         <div class="h-14.5 hidden lg:block"></div>
     @endif
 
+    <livewire:quotes />
     @livewireScripts()
 </body>
 

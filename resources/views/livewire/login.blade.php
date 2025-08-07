@@ -2,7 +2,7 @@
     @if (Route::has('login'))
         <nav class="flex items-center justify-end gap-4">
             @auth
-                Create Post
+                <livewire:upload />
                 <div class="flex items-center gap-3 mr-4 text-white">
                     @if (auth()->user()->avatar)
                         <img src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}'s avatar"
