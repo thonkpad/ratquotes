@@ -3,6 +3,11 @@
 use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attribute\Validate;
+use function Livewire\Volt\{mount};
+
+mount(function () {
+    $this->id = auth()->id();
+});
 
 new class extends Component {
     use WithFileUploads;
@@ -11,6 +16,8 @@ new class extends Component {
     public $photo;
 
     public $message = '';
+
+    public ?int $id = null;
 
     protected function rules()
     {
@@ -30,6 +37,11 @@ new class extends Component {
 
             $this->message = 'Photo uploaded successfully!';
             $this->photo = null;
+
+            auth()->user()->posts()->create([
+                'filepath' => $path,
+                'uploaded_at' => now(),
+            ]);
 
         } catch (\Exception $e) {
             logger('R2 Upload Error: ' . $e->getMessage());
