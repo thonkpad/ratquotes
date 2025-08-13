@@ -9,11 +9,12 @@ use App\Models\User;
 
 class Post extends Model
 {
+    public $timestamps = false; // we already have 'uploaded_at'
+
     protected $fillable = [
         'user_id',
         'filepath',
         'uploaded_at',
-        'upvotes',
     ];
 
     public function upvote()
