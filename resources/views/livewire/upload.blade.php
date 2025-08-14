@@ -43,6 +43,8 @@ new class extends Component {
                 'uploaded_at' => now(),
             ]);
 
+            return redirect()->to(request()->url());
+
         } catch (\Exception $e) {
             logger('R2 Upload Error: ' . $e->getMessage());
             $this->message = 'Upload failed: ' . $e->getMessage();
