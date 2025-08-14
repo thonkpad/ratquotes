@@ -28,6 +28,5 @@
                 </a>
             @endauth
         </nav>
-
     @endif
 </div>

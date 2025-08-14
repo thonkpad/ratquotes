@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\User;
 
@@ -15,6 +16,10 @@ class Post extends Model
         'user_id',
         'filepath',
         'uploaded_at',
+    ];
+
+    protected $casts = [
+        'uploaded_at' => 'datetime',
     ];
 
     public function upvote()
@@ -49,6 +54,13 @@ class Post extends Model
 
     public function getUrlAttribute(): string
     {
-        return assert('storage/' . $this->filepath);
+        return Storage::disk('r2')->temporaryUrl($this->filepath, now()->addHour());
     }
+
+    public function getImage(): string
+    {
+        return Storage::disk('r2')->get($this->filepath);
+
+    }
+
 }
