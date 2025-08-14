@@ -31,7 +31,7 @@ new class extends Component {
         $this->validate();
 
         try {
-            $path = $this->photo->store('quotes', 'r2');
+            $path = $this->photo->store('', 'r2');
 
             logger('File uploaded to R2: ' . $path);
 
