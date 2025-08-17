@@ -1,56 +1,50 @@
 <?php
 
-use Livewire\Volt\Component;
 use Livewire\WithFileUploads;
-use Livewire\Attribute\Validate;
-use function Livewire\Volt\{mount};
+use function Livewire\Volt\{state, rules, uses, action};
 
-mount(function () {
-    $this->id = auth()->id();
+uses([WithFileUploads::class]);
+
+state(
+    [
+        'photo' => null,
+        'message' => '',
+        'id' => null,
+    ]
+);
+
+rules(
+    [
+        'photo' => 'required|image|max:5120',
+    ]
+);
+
+$save = action(function () {
+
+    $this->validate();
+
+    try {
+        $path = $this->photo->store('', 'r2');
+
+        logger('File uploaded to R2: ' . $path);
+
+        $this->message = 'Photo uploaded successfully!';
+        $this->photo = null;
+
+        auth()->user()->posts()->create([
+            'filepath' => $path,
+            'uploaded_at' => now(),
+        ]);
+
+        return redirect()->to(request()->url());
+
+    } catch (\Exception $e) {
+        logger('R2 Upload Error: ' . $e->getMessage());
+        $this->message = 'Upload failed: ' . $e->getMessage();
+    }
 });
 
-new class extends Component {
-    use WithFileUploads;
-
-    #[Validate('image|max:5120')]
-    public $photo;
-
-    public $message = '';
-
-    public ?int $id = null;
-
-    protected function rules()
-    {
-        return [
-            'photo' => 'required|image|max:5120',
-        ];
-    }
-
-    public function save()
-    {
-        $this->validate();
-
-        try {
-            $path = $this->photo->store('', 'r2');
-
-            logger('File uploaded to R2: ' . $path);
-
-            $this->message = 'Photo uploaded successfully!';
-            $this->photo = null;
-
-            auth()->user()->posts()->create([
-                'filepath' => $path,
-                'uploaded_at' => now(),
-            ]);
-
-            return redirect()->to(request()->url());
-
-        } catch (\Exception $e) {
-            logger('R2 Upload Error: ' . $e->getMessage());
-            $this->message = 'Upload failed: ' . $e->getMessage();
-        }
-    }
-}; ?>
+?>
 
 <div class="flex items-center">
     <form wire:submit="save">

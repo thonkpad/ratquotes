@@ -1,17 +1,19 @@
 <?php
-use Livewire\Volt\Component;
+use function Livewire\Volt\{state, mount};
+
 use App\Models\Post;
 
-new class extends Component {
-    public $posts = [];
+state(
+    ['posts' => []]
+);
 
-    public function mount()
-    {
-        $this->posts = Post::with('user')
-            ->latest('uploaded_at')
-            ->get();
-    }
-};
+mount(function () {
+    $this->posts = Post::with('user')
+        ->latest('uploaded_at')
+        ->get();
+
+});
+
 ?>
 
 <div>
