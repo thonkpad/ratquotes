@@ -26,7 +26,6 @@ mount(function () {
                             <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="w-8 h-8 rounded-full">
                             <p class="font-medium">{{ $post->user->name }}</p>
                         </div>
-
                         <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($post->uploaded_at)->diffForHumans() }}</p>
                     </div>
                     <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}" class="w-full rounded-lg">
