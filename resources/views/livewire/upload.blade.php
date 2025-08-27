@@ -26,7 +26,7 @@ $save = action(function () {
     try {
         $path = $this->photo->store('', 'r2');
 
-        logger('File uploaded to R2: ' . $path);
+        logger("File uploaded to R2: $path");
 
         $this->message = 'Photo uploaded successfully!';
         $this->photo = null;

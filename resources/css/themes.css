@@ -1,0 +1,27 @@
+:root {
+    /* Light theme */
+    --color-background: #fdfcf9;
+    --color-text: #1b1b18;
+    --color-nav-bg: #000000;
+    --color-nav-text: #ffffff;
+    --color-surface: #ffffff;
+    --color-border: #e5e7eb;
+}
+
+.dark {
+    /* Dark theme */
+    --color-background: #0a0a0a;
+    --color-text: #f9fafb;
+    --color-nav-bg: #111827;
+    --color-nav-text: #f9fafb;
+    --color-surface: #1f2937;
+    --color-border: #374151;
+}
+
+/* Additional theme variants */
+[data-theme="warm"] {
+    --color-background: #fef7ed;
+    --color-text: #431407;
+    --color-nav-bg: #ea580c;
+    --color-nav-text: #ffffff;
+}

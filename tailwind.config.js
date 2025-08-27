@@ -20,24 +20,18 @@ export default {
         'dark',
     ],
     theme: {
-        // pare down scales to only what you need
-        spacing: {
-            px: '1px',
-            1: '0.25rem',
-            2: '0.5rem',
-            4: '1rem',
-            6: '1.5rem',
-            8: '2rem',
-        },
-        borderRadius: {
-            none: '0',
-            sm: '0.125rem',
-            DEFAULT: '0.375rem',
-            lg: '0.5rem',
-            full: '9999px',
-        },
         extend: {
-            // only add extensions if you actually use them
+            colors: {
+                background: 'var(--color-background)',
+                text: 'var(--color-text)',
+                'nav-bg': 'var(--color-nav-bg)',
+                'nav-text': 'var(--color-nav-text)',
+                surface: 'var(--color-surface)',
+                border: 'var(--color-border)',
+            },
+            fontFamily: {
+                sans: ['Instrument Sans', 'sans-serif'],
+            },
         },
     },
     corePlugins: {

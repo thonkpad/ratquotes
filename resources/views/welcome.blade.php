@@ -20,10 +20,10 @@
 </head>
 
 <body
-    class="bg-[#fdfcf9] dark:bg-[#0a0a0a] text-[#1b1b18] flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
+    class="bg-background dark:bg-background text-text flex p-6 lg:p-8 items-center lg:justify-center min-h-screen flex-col">
     <header class="w-full lg:max-w-4xl max-w-[335px] text-sm mb-6 not-has-[nav]:hidden">
         <nav
-            class="fixed top-0 left-0 w-full z-50 bg-black text-white h-16 shadow-sm flex items-center justify-between px-6">
+            class="fixed top-0 left-0 w-full z-50 bg-nav-bg text-nav-text h-16 shadow-sm flex items-center justify-between px-6">
             <div class="flex items-center">
                 <a class="text-x1 font-semibold no-underline">
                     Rat Quotes
