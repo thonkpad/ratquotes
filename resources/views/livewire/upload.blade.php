@@ -36,6 +36,7 @@ $save = action(function () {
             'uploaded_at' => now(),
         ]);
 
+        $this->js('window.location.reload()');
 
     } catch (\Exception $e) {
         logger('R2 Upload Error: ' . $e->getMessage());
