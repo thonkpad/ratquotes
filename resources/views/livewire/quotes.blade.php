@@ -1,5 +1,5 @@
 <?php
-use function Livewire\Volt\{state, mount};
+use function Livewire\Volt\{state, mount, action};
 
 use App\Models\Post;
 
@@ -14,6 +14,22 @@ mount(function () {
 
 });
 
+$deletePost = action(function ($id) {
+    $post = Post::find($id);
+    $url = $post->filepath;
+
+    if ($post) {
+        $post->delete();
+        $this->posts = $this->posts->filter(
+            function ($p) use ($id) {
+                return $p->id !== $id;
+            }
+        );
+        $this->js('window.location.reload()');
+
+        Storage::disk('r2')->delete($url);
+    }
+})
 ?>
 
 <div>
@@ -28,7 +44,16 @@ mount(function () {
                         </div>
                         <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($post->uploaded_at)->diffForHumans() }}</p>
                     </div>
-                    <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}" class="w-full rounded-lg">
+                    <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}" class="w-full rounded-lg mb-2">
+                    @if(auth()->id() === 1)
+                        <div class="flex justify-end">
+                            <button wire:click="deletePost({{ $post->id }})"
+                                wire:confirm="Are you sure you want to delete this post?"
+                                class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors">
+                                Delete
+                            </button>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>
