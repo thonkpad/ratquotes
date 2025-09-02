@@ -21,9 +21,7 @@ $deletePost = action(function ($id) {
     if ($post) {
         $post->delete();
         $this->posts = $this->posts->filter(
-            function ($p) use ($id) {
-                return $p->id !== $id;
-            }
+            fn($p) => $p->id !== $id
         );
         $this->js('window.location.reload()');
 
