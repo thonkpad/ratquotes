@@ -18,14 +18,18 @@ $deletePost = action(function ($id) {
     $post = Post::find($id);
     $url = $post->filepath;
 
-    if ($post) {
-        $post->delete();
-        $this->posts = $this->posts->filter(
-            fn($p) => $p->id !== $id
-        );
-        $this->js('window.location.reload()');
+    try {
+        if ($post) {
+            $post->delete();
+            $this->posts = $this->posts->filter(
+                fn($p) => $p->id !== $id
+            );
+            $this->js('window.location.reload()');
 
-        Storage::disk('r2')->delete($url);
+            Storage::disk('r2')->delete($url);
+        }
+    } catch (\Exception $e) {
+        logger("R2 Delete Error: " . $e->getMessage());
     }
 })
 ?>
