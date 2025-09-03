@@ -18,6 +18,11 @@ $deletePost = action(function ($id) {
     $post = Post::find($id);
     $url = $post->filepath;
 
+    if (auth()->user()->discord_id !== "259583787808194560") {
+        session()->flash('error', 'Unauthorized action');
+        return;
+    }
+
     try {
         if ($post) {
             $post->delete();
@@ -47,7 +52,7 @@ $deletePost = action(function ($id) {
                         <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($post->uploaded_at)->diffForHumans() }}</p>
                     </div>
                     <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}" class="w-full rounded-lg mb-2">
-                    @if(auth()->id() === 1)
+                    @if(auth()->user()->discord_id === "259583787808194560")
                         <div class="flex justify-end">
                             <button wire:click="deletePost({{ $post->id }})"
                                 wire:confirm="Are you sure you want to delete this post?"
