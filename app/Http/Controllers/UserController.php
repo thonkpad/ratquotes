@@ -10,7 +10,7 @@ class UserController extends Controller
     {
         $user->load([
             'posts' => function ($query) {
-                $query->orderBy('created_at');
+                $query->orderBy('uploaded_at', 'desc');
             }
         ]);
 

@@ -15,7 +15,10 @@
                             </div>
                             <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($post->uploaded_at)->diffForHumans() }}</p>
                         </div>
-                        <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}" class="w-full rounded-lg mb-2">
+                        <a href="{{ route('post.show', $post) }}">
+                            <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}"
+                                class="w-full rounded-lg mb-2 hover:opacity-90 transition-opacity cursor-pointer">
+                        </a>
                         @if(auth()->user()?->discord_id === "259583787808194560")
                             <div class="flex justify-end">
                                 <button wire:click="deletePost({{ $post->id }})"
