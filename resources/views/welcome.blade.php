@@ -2,4 +2,6 @@
 
 @section('title', 'Welcome - Rat Quotes')
 
-<livewire:quotes />
+@section('content')
+    <livewire:quotes />
+@endsection
