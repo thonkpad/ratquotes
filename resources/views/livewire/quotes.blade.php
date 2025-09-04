@@ -47,7 +47,10 @@ $deletePost = action(function ($id) {
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center space-x-2">
                             <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="w-8 h-8 rounded-full">
-                            <p class="font-medium">{{ $post->user->name }}</p>
+                            <a href="{{ route('user.posts', $post->user) }}"
+                                class="font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+                                {{ $post->user->name }}
+                            </a>
                         </div>
                         <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($post->uploaded_at)->diffForHumans() }}</p>
                     </div>
