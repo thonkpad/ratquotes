@@ -4,10 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\{UserController, PostController};
 
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
+
+Route::get('/user/{user}', [UserController::class, 'posts'])->name('user.posts');
+
+Route::get('/post/{post}', [PostController::class, 'show'])->name('post.show');
 
 Route::get('/privacy', function () {
     return view('privacy');

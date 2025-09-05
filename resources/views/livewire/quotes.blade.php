@@ -11,7 +11,6 @@ mount(function () {
     $this->posts = Post::with('user')
         ->latest('uploaded_at')
         ->get();
-
 });
 
 $deletePost = action(function ($id) {
@@ -36,7 +35,7 @@ $deletePost = action(function ($id) {
     } catch (\Exception $e) {
         logger("R2 Delete Error: " . $e->getMessage());
     }
-})
+});
 ?>
 
 <div>
@@ -47,11 +46,17 @@ $deletePost = action(function ($id) {
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center space-x-2">
                             <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="w-8 h-8 rounded-full">
-                            <p class="font-medium">{{ $post->user->name }}</p>
+                            <a href="{{ route('user.posts', $post->user) }}"
+                                class="font-medium text-blue-600 hover:text-blue-800 hover:underline transition-colors">
+                                {{ $post->user->name }}
+                            </a>
                         </div>
                         <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($post->uploaded_at)->diffForHumans() }}</p>
                     </div>
-                    <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}" class="w-full rounded-lg mb-2">
+                    <a href="{{ route('post.show', $post) }}">
+                        <img src="{{ $post->url }}" alt="Post by {{ $post->user->name }}"
+                            class="w-full rounded-lg mb-2 hover:opacity-90 transition-opacity cursor-pointer">
+                    </a>
                     @if(auth()->user()?->discord_id === "259583787808194560")
                         <div class="flex justify-end">
                             <button wire:click="deletePost({{ $post->id }})"
