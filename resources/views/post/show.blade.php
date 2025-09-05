@@ -3,18 +3,13 @@
 @section('title', 'Post by ' . $post->user->name . ' - Rat Quotes')
 
 @push('meta')
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="Post by {{ $post->user->name }} - Rat Quotes">
-    <meta property="og:description" content="Is that a rat quotes moment">
+    <meta property="og:title" content="{{ $post->user->name }}">
     <meta property="og:image" content="{{ $post->url }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="Rat Quotes">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="720">
+    <meta property="og:url" content="{{ url()->current() }}">
 
-    <meta name="description" content="Post by {{ $post->user->name }} on Rat Quotes">
-    <meta name="author" content="{{ $post->user->name }}">
 @endpush
 
 @section('content')
