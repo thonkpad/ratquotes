@@ -15,7 +15,15 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
+    <meta property="og:site_name" content="Rat Quotes">
+    <meta property="og:type" content="website">
+    <meta name="description" content="Is this a Rat Quotes moment?!">
+    <meta property="og:description" content="Is this a Rat Quotes moment?!">
+
+    @stack('meta')
+
     @vite('resources/css/app.css')
+    @stack('styles')
 </head>
 
 <body

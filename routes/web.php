@@ -12,7 +12,7 @@ Route::get('/', function () {
 
 Route::get('/user/{user}', [UserController::class, 'posts'])->name('user.posts');
 
-Route::get('/post/{post}', [PostController::class, 'show'])->name('post.show');
+Route::get('/post/{post}', action: [PostController::class, 'show'])->name('post.show');
 
 Route::get('/privacy', function () {
     return view('privacy');
