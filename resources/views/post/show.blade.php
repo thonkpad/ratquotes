@@ -21,7 +21,7 @@
     <title>Rat Quotes</title>
     <meta name="description" content="Quoted by {{ $post->user->name }}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content="{env.PUBLIC_SITE_URL}">
+    <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ $post->url }}">
     <meta name="twitter:card" content="summary_large_image">
 @endpush
