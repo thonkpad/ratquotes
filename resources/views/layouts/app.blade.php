@@ -17,8 +17,6 @@
 
     <meta property="og:site_name" content="Rat Quotes">
     <meta property="og:type" content="website">
-    <meta name="description" content="Is this a Rat Quotes moment?!">
-    <meta property="og:description" content="Is this a Rat Quotes moment?!">
 
     @stack('meta')
 
