@@ -3,8 +3,8 @@
 @section('title', 'Post by ' . $post->user->name . ' - Rat Quotes')
 
 @push('meta')
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
+    {{-- <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="Post by {{ $post->user->name }} - Rat Quotes">
     <meta property="og:description" content="Is that a rat quotes moment">
@@ -14,7 +14,14 @@
     <meta property="og:site_name" content="Rat Quotes">
 
     <meta name="description" content="Post by {{ $post->user->name }} on Rat Quotes">
-    <meta name="author" content="{{ $post->user->name }}">
+    <meta name="author" content="{{ $post->user->name }}"> --}}
+
+    <title>Rat Quotes</title>
+    <meta name="description" content="Quoted by {{ $post->user->name }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{env.PUBLIC_SITE_URL}">
+    <meta property="og:image" content="{{ $post->url }}">
+    <meta name="twitter:card" content="summary_large_image">
 @endpush
 
 @section('content')
